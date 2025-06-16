@@ -1,9 +1,23 @@
 import express from 'express';
-import { createServer } from 'http';
-import { Server } from 'socket.io';
-import { cors } from 'cors';
-import { config } from './config.js';
-import { setupRoutes } from './routes.js';
-import { setupSocket } from './socket.js';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import chessMoveRoutes from './routes/chessMoves.js';
+
 const app = express();
-const server = createServer(app);
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Routes
+app.use('/api/chess', chessMoveRoutes);
+
+// Basic route
+app.get('/', (req, res) => {
+  res.send('Chess API is running');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

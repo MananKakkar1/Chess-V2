@@ -6,7 +6,6 @@
   margin: 40px auto;
   border-radius: 2px;
   border: 2px solid #333;
-  margin-top: 200px;
 }
 
 .square {
@@ -16,6 +15,8 @@
   align-items: center;
   justify-content: center;
   font-size: 2em;
+  position: relative;
+  cursor: pointer;
 }
 
 .light {
@@ -26,10 +27,48 @@
   background: #b58863;
 }
 
-.dark:hover {
+.selected {
+  background-color: rgba(106, 159, 181, 0.6);
+}
+
+.valid-move {
   cursor: pointer;
 }
 
-.light:hover {
-  cursor: pointer;
+.move-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: rgba(106, 159, 181, 0.5);
+}
+
+.capture-indicator {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid rgba(106, 159, 181, 0.5);
+  box-sizing: border-box;
+}
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.game-info {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+
+.loading, .error {
+  margin: 40px auto;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.error {
+  color: #d32f2f;
 }
