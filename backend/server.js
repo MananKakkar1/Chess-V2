@@ -322,4 +322,4 @@ server.listen(PORT, () => {
 });
 
 // Import your existing chess logic functions here
-const { validateMove, getValidMoves } = require('./utils/chessLogic');
+import { validateMove, getValidMoves } from './utils/chessLogic.js';
