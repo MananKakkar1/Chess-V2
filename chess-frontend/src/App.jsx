@@ -1,23 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Board from "./components/Board";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Play from "./pages/Play";
 import Rules from "./pages/Rules";
+import CreateGame from "./pages/CreateGame";
+import Multiplayer from "./pages/Multiplayer";
 import "./App.css";
-
-// Your chess board initial state
-const initialBoard = [
-  ["bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"],
-  ["bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP"],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  ["wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP"],
-  ["wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"],
-];
 
 function App() {
   return (
@@ -26,8 +16,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/play" element={<Play />} />
         <Route path="/rules" element={<Rules />} />
-        <Route path="/play" element={<Board board={initialBoard} />} />
+        <Route path="/create-game" element={<CreateGame />} />
+        <Route path="/multiplayer/:gameId" element={<Multiplayer />} />
       </Routes>
     </Router>
   );

@@ -58,17 +58,20 @@ export default function Board() {
   // Get valid moves for a selected piece
   const getValidMoves = async (row, col) => {
     try {
-      const response = await fetch("http://localhost:5000/api/chess/valid-moves", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          boardState,
-          position: { row, col },
-          currentPlayer,
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/chess/valid-moves",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            boardState,
+            position: { row, col },
+            currentPlayer,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to get valid moves");
@@ -185,36 +188,56 @@ export default function Board() {
         </div>
       </div>
 
-      <div className="chessboard">
-        {boardState &&
-          boardState.map((row, rowIdx) =>
-            row.map((piece, colIdx) => {
-              const isLight = (rowIdx + colIdx) % 2 === 0;
-              const isSelected =
-                selectedSquare &&
-                selectedSquare.row === rowIdx &&
-                selectedSquare.col === colIdx;
-              const isValidMove = isValidMoveSquare(rowIdx, colIdx);
+      <div className="board-with-notation">
+        <div className="rank-notation">
+          {["8", "7", "6", "5", "4", "3", "2", "1"].map((rank) => (
+            <div key={rank} className="notation-item">
+              {rank}
+            </div>
+          ))}
+        </div>
 
-              return (
-                <div
-                  className={`square ${isLight ? "light" : "dark"} ${
-                    isSelected ? "selected" : ""
-                  } ${isValidMove ? "valid-move" : ""}`}
-                  key={`${rowIdx}-${colIdx}`}
-                  onClick={() => handleSquareClick(rowIdx, colIdx)}
-                >
-                  {piece ? pieceUnicode[piece] : ""}
-                  {isValidMove && !piece && (
-                    <div className="move-indicator"></div>
-                  )}
-                  {isValidMove && piece && (
-                    <div className="capture-indicator"></div>
-                  )}
-                </div>
-              );
-            })
-          )}
+        <div className="board-and-files">
+          <div className="chessboard">
+            {boardState &&
+              boardState.map((row, rowIdx) =>
+                row.map((piece, colIdx) => {
+                  const isLight = (rowIdx + colIdx) % 2 === 0;
+                  const isSelected =
+                    selectedSquare &&
+                    selectedSquare.row === rowIdx &&
+                    selectedSquare.col === colIdx;
+                  const isValidMove = isValidMoveSquare(rowIdx, colIdx);
+
+                  return (
+                    <div
+                      className={`square ${isLight ? "light" : "dark"} ${
+                        isSelected ? "selected" : ""
+                      } ${isValidMove ? "valid-move" : ""}`}
+                      key={`${rowIdx}-${colIdx}`}
+                      onClick={() => handleSquareClick(rowIdx, colIdx)}
+                    >
+                      {piece ? pieceUnicode[piece] : ""}
+                      {isValidMove && !piece && (
+                        <div className="move-indicator"></div>
+                      )}
+                      {isValidMove && piece && (
+                        <div className="capture-indicator"></div>
+                      )}
+                    </div>
+                  );
+                })
+              )}
+          </div>
+
+          <div className="file-notation">
+            {["a", "b", "c", "d", "e", "f", "g", "h"].map((file) => (
+              <div key={file} className="notation-item">
+                {file}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
